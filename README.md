@@ -1,24 +1,38 @@
-# README
+# リポジトリクローン
+```
+git clone https://github.com/furuya-3150/rails-docker
+```
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# 環境変数ファイルの作成 (.envの中の値は管理者に確認)
+railsのルートディレクトリに.envを追加
+```
+touch .env
+cp .env.example.local .env
+```
 
-Things you may want to cover:
+# PostgreSQLのパスワードを環境変数に設定（パスワードは管理者に確認）
+zshの場合`~/.zshrc`に下記を追加し`source ~/.zshrc`
+```
+export POSTGRES_PASSWORD=xxxxx
+```
 
-* Ruby version
+# Dockerイメージのビルド
+railsのルートディレクトリで下記実行
+```
+docker compose build
+```
+# コンテナ起動
+railsのルートディレクトリで下記実行
+```
+docker compose up
+```
 
-* System dependencies
+# データベース・テーブル作成
+`docker compose exec web bash`でコンテナに入り、データベースを作成・マイグレーション実行
+```
+rails db:create
+rails db:migrate
+```
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+下記のローカル環境にアクセスできれば OK<br>
+http://localhost:3000/<br>
